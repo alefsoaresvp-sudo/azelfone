@@ -56,3 +56,13 @@ A chave publishable/anon é destinada ao cliente e só deve ser usada com RLS re
 7. Rever textos e conteúdo didático com especialistas; cursos de trading/cripto são educacionais e não fornecem sinais ou recomendação personalizada.
 
 O projeto não promete ganhos, emprego ou rentabilidade.
+
+## Cloudflare Pages deployment
+
+Project connected to GitHub repository `alefsoaresvp-sudo/azelfone` (branch `main`).
+- Project: `azelfone`
+- Build: `npm run build`
+- Output: `dist`
+- Supabase public client variables configured in Cloudflare Pages project settings.
+
+Pushing to `main` triggers production builds.
