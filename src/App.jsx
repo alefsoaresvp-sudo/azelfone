@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
-import { Activity, ArrowRight, BarChart3, BookOpen, BrainCircuit, BriefcaseBusiness, CalendarDays, CheckCircle2, ChevronRight, CircleHelp, Code2, Coins, ExternalLink, GraduationCap, Headphones, LayoutDashboard, LogOut, Menu, MessageCircle, Moon, Plus, Rocket, Search, Send, ShieldCheck, Sparkles, Sun, Target, Ticket, Trash2, TrendingUp, Users, Video, Wallet, X } from 'lucide-react'
+import { Activity, Blocks, ArrowRight, BarChart3, BookOpen, BrainCircuit, BriefcaseBusiness, CalendarDays, CheckCircle2, ChevronRight, CircleHelp, Code2, Coins, ExternalLink, GraduationCap, Headphones, LayoutDashboard, LogOut, Menu, MessageCircle, Moon, Plus, Rocket, Search, Send, ShieldAlert, ShieldCheck, Sparkles, Sun, Target, Ticket, Trash2, TrendingUp, Users, Video, Wallet, X } from 'lucide-react'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
