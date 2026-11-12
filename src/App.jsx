@@ -333,7 +333,19 @@ function copyLabText(value,setNotice){
 function PracticalLab({lab='esp32',back}){
   const [ledOn,setLedOn]=useState(false),[sensor,setSensor]=useState(1850),[buttonPressed,setButtonPressed]=useState(false)
   const [difficulty,setDifficulty]=useState(2),[powInput,setPowInput]=useState('AZELF-POW-DEMO'),[powBusy,setPowBusy]=useState(false),[powAttempts,setPowAttempts]=useState(0),[powResult,setPowResult]=useState(null),[powNotice,setPowNotice]=useState('')
-  const [webSource,setWebSource]=useState('<!doctype html>\n<html lang="pt-BR">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <style>body{font-family:Arial;padding:24px;background:#101b2d;color:white}button{padding:10px 14px;border:0;border-radius:8px;background:#6287ff;color:white}</style>\n</head>\n<body>\n  <h1>Meu primeiro projeto AZELF</h1>\n  <p>Edite este HTML, CSS e JavaScript.</p>\n  <button onclick="document.querySelector(\\'p\\').textContent=\\'O botão está funcionando!\\'">Testar interação</button>\n</body>\n</html>'),[webPreview,setWebPreview]=useState(true)
+  const [webSource,setWebSource]=useState(`<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>body{font-family:Arial;padding:24px;background:#101b2d;color:white}button{padding:10px 14px;border:0;border-radius:8px;background:#6287ff;color:white}</style>
+</head>
+<body>
+  <h1>Meu primeiro projeto AZELF</h1>
+  <p>Edite este HTML, CSS e JavaScript.</p>
+  <button onclick="document.querySelector('p').textContent='O botão está funcionando!'">Testar interação</button>
+</body>
+</html>`),[webPreview,setWebPreview]=useState(true)
   const [promptGoal,setPromptGoal]=useState('Criar uma explicação técnica para iniciantes'),[promptAudience,setPromptAudience]=useState('Pessoa sem experiência'),[promptContext,setPromptContext]=useState('Estou aprendendo na AZELF e preciso entender o assunto com um exemplo prático.'),[promptFormat,setPromptFormat]=useState('Explicação passo a passo, exemplo, exercício e checklist'),[promptResult,setPromptResult]=useState('')
   const [budget,setBudget]=useState(500),[impressions,setImpressions]=useState(20000),[ctr,setCtr]=useState(2.5),[leadRate,setLeadRate]=useState(12),[closeRate,setCloseRate]=useState(8),[ticket,setTicket]=useState(149),[grossMargin,setGrossMargin]=useState(65)
   const [automationEvent,setAutomationEvent]=useState('Novo formulário recebido'),[automationCondition,setAutomationCondition]=useState('Campos obrigatórios preenchidos'),[automationAction,setAutomationAction]=useState('Criar tarefa para revisão'),[automationLog,setAutomationLog]=useState([])
