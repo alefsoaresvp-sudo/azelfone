@@ -167,3 +167,20 @@
 @media(max-width:900px){.admin-overview-grid,.admin-ticket-layout,.market-lab-grid,.business-lab-grid{grid-template-columns:1fr}.admin-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.lab-grid,.chain-lab-grid,.support-grid,.admin-code-layout,.admin-content-grid,.admin-social-grid{grid-template-columns:1fr}.chain-lab-grid .blockchain-panel,.content-list-panel{grid-column:auto}.lab-card-visual{height:155px}.lab-page .section-heading.left h1,.crypto-lab .section-heading.left h1{font-size:32px}.lab-tabs{display:grid;grid-template-columns:1fr 1fr}.lab-tabs button{justify-content:center;padding:10px 6px;font-size:9px}.admin-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-kpis .stat-card{padding:13px}.admin-table{min-width:680px}.admin-overview-grid{grid-template-columns:1fr}.landing-lab-promo{margin:28px 0 0;padding:22px}.landing-lab-promo h2{font-size:19px}.lab-promo-mark{width:75px;height:75px}.paper-wallet{grid-template-columns:1fr 1fr}.ticket-title-row{align-items:flex-start}.row-actions .button,.row-actions .outline-button{flex:1}}
 @media(prefers-reduced-motion:reduce){.hero-3d-orb,.orb-ring,.hero-3d-stage:before,.orbit-three,.lab-token-orbit{animation:none!important;transition:none!important}}
+
+/* Lesson-to-project flow */
+.lesson-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+.lesson-tabs button{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--surface);color:var(--text-muted);font-size:10px;font-weight:800}
+.lesson-tabs button.active{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.lesson-mission{max-width:850px;margin:10px 0 20px}
+.lesson-mission h2{font:800 22px Manrope;margin:9px 0}
+.lesson-mission>p{font-size:12px;line-height:1.8;color:var(--text-muted)}
+.mission-checklist{display:grid;gap:10px;margin:18px 0}
+.mission-checklist>div{display:flex;align-items:flex-start;gap:9px;padding:11px;border:1px solid var(--border);background:var(--surface-2);border-radius:10px;font-size:11px;line-height:1.6}
+.mission-checklist svg{color:var(--success);width:16px;flex-shrink:0}
+.lesson-completion-bar{margin-top:20px;padding:15px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;color:var(--text-muted)}
+.lesson-actions{display:flex;gap:9px;flex-wrap:wrap}
+.admin-ticket-layout .ticket-row{min-width:0}
+.dark-mode .lesson-content{background:var(--surface);border-color:var(--border);color:var(--text-muted)}
+.dark-mode .generated-code{background:#122b27;border-color:#286b59}
+@media(max-width:620px){.lesson-tabs{display:grid;grid-template-columns:1fr 1fr}.lesson-tabs button{justify-content:center;padding:10px 5px}.lesson-completion-bar{align-items:stretch;flex-direction:column}.lesson-completion-bar .outline-button{width:100%}}
