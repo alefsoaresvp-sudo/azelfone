@@ -232,7 +232,7 @@ function Admin({courses,lessons,tools,profile,refresh}){
   async function loadProjects(){try{const d=await call('admin-manage',{action:'student-projects'});setProjects(d.projects||[])}catch(e){setMessage(e.message)}}
   async function loadAffiliateRows(){const {data,error}=await supabase.from('affiliate_products').select('*').order('sort_order');if(error)setMessage(error.message);else setAffiliateRows(data||[])}
   async function loadPartnerLinks(){const {data,error}=await supabase.from('student_affiliate_links').select('*').order('updated_at',{ascending:false}).limit(300);if(error)setMessage(error.message);else setPartnerLinks(data||[])}
-  async async function deletePartnerLink(id){if(!confirm('Remover este link cadastrado pelo aluno?'))return;const {error}=await supabase.from('student_affiliate_links').delete().eq('id',id);if(error)setMessage(error.message);else{setMessage('Link do aluno removido.');await loadPartnerLinks()}}
+  async function deletePartnerLink(id){if(!confirm('Remover este link cadastrado pelo aluno?'))return;const {error}=await supabase.from('student_affiliate_links').delete().eq('id',id);if(error)setMessage(error.message);else{setMessage('Link do aluno removido.');await loadPartnerLinks()}}
   useEffect(()=>{loadOverview();loadDashboard()},[])
   useEffect(()=>{if(courses.length&&!courses.some(c=>c.id===courseId))setCourseId(courses[0].id)},[courses,courseId])
   useEffect(()=>{
