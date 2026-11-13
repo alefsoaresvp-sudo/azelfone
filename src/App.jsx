@@ -349,16 +349,14 @@ function IncomeHub({openCourses,openLabs,openTools,openAffiliates,openChat,onSta
 
 function EnglishHub(){
   const url='https://alefsoaresvp-sudo.github.io/FALA/'
-  const [frameFailed,setFrameFailed]=useState(false)
   return <section className="workspace english-hub">
     <div className="section-heading left"><span className="eyebrow">AZELF ENGLISH · FALA</span><h1>Aprenda inglês com propósito.</h1><p>O FALA English é seu ambiente de prática personalizado, com a Lumi e trilhas orientadas pelos seus objetivos. A AZELF conecta o acesso sem duplicar cadastro nem interferir na conta do FALA.</p></div>
     <div className="english-launch-panel">
       <div className="english-launch-copy"><span className="eyebrow">SEU APLICATIVO DE INGLÊS</span><h2>FALA English</h2><p>Comece pelo perfil de aprendizagem, informe o que deseja conquistar com o inglês e siga as atividades propostas pela Lumi.</p><div className="english-feature-list"><span>Perfil personalizado</span><span>Prática de fala e escrita</span><span>Trilhas orientadas por objetivos</span></div><a className="button" href={url} target="_blank" rel="noopener noreferrer">Abrir FALA em nova aba <ExternalLink size={15}/></a></div>
       <div className="english-launch-visual"><div className="english-orbit">FALA<span>ENGLISH</span></div><span>APRENDER COM INTENÇÃO</span></div>
     </div>
-    <div className="english-embed-heading"><div><span className="eyebrow">ACESSO INTEGRADO</span><h2>Praticar dentro da AZELF</h2></div><a href={url} target="_blank" rel="noopener noreferrer">Abrir diretamente <ExternalLink size={14}/></a></div>
-    <div className="english-embed-frame"><iframe title="FALA English — aplicativo de aprendizagem de inglês" src={url} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="microphone; autoplay" onError={()=>setFrameFailed(true)}/></div>
-    <p className="admin-footnote">O FALA funciona em domínio próprio do GitHub Pages. O login, os dados de aprendizagem e a disponibilidade de recursos de voz continuam sob controle do aplicativo FALA. Se o navegador bloquear a incorporação ou o microfone no quadro, use “Abrir FALA em nova aba”.</p>
+    <div className="english-external-launch"><div><span className="eyebrow">APLICATIVO INDEPENDENTE</span><h2>Continue sua jornada no FALA English.</h2><p>Abra o ambiente completo para responder ao diagnóstico, conversar com a Lumi, praticar fala e escrita e acompanhar seu progresso. O FALA mantém sua própria autenticação e histórico de aprendizagem.</p></div><a className="button" href={url} target="_blank" rel="noopener noreferrer">Iniciar no FALA English <ExternalLink size={15}/></a></div>
+    <p className="admin-footnote">A AZELF oferece o acesso centralizado, mas não compartilha automaticamente login, perfil ou progresso com o FALA. Entre ou crie sua conta no próprio FALA. Não é necessário informar sua senha da AZELF no outro aplicativo.</p>
   </section>
 }
 
