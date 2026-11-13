@@ -346,6 +346,22 @@ function IncomeHub({openCourses,openLabs,openTools,openAffiliates,openChat,onSta
   </section>
 }
 
+
+function EnglishHub(){
+  const url='https://alefsoaresvp-sudo.github.io/FALA/'
+  const [frameFailed,setFrameFailed]=useState(false)
+  return <section className="workspace english-hub">
+    <div className="section-heading left"><span className="eyebrow">AZELF ENGLISH · FALA</span><h1>Aprenda inglês com propósito.</h1><p>O FALA English é seu ambiente de prática personalizado, com a Lumi e trilhas orientadas pelos seus objetivos. A AZELF conecta o acesso sem duplicar cadastro nem interferir na conta do FALA.</p></div>
+    <div className="english-launch-panel">
+      <div className="english-launch-copy"><span className="eyebrow">SEU APLICATIVO DE INGLÊS</span><h2>FALA English</h2><p>Comece pelo perfil de aprendizagem, informe o que deseja conquistar com o inglês e siga as atividades propostas pela Lumi.</p><div className="english-feature-list"><span>Perfil personalizado</span><span>Prática de fala e escrita</span><span>Trilhas orientadas por objetivos</span></div><a className="button" href={url} target="_blank" rel="noopener noreferrer">Abrir FALA em nova aba <ExternalLink size={15}/></a></div>
+      <div className="english-launch-visual"><div className="english-orbit">FALA<span>ENGLISH</span></div><span>APRENDER COM INTENÇÃO</span></div>
+    </div>
+    <div className="english-embed-heading"><div><span className="eyebrow">ACESSO INTEGRADO</span><h2>Praticar dentro da AZELF</h2></div><a href={url} target="_blank" rel="noopener noreferrer">Abrir diretamente <ExternalLink size={14}/></a></div>
+    <div className="english-embed-frame"><iframe title="FALA English — aplicativo de aprendizagem de inglês" src={url} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" allow="microphone; autoplay" onError={()=>setFrameFailed(true)}/></div>
+    <p className="admin-footnote">O FALA funciona em domínio próprio do GitHub Pages. O login, os dados de aprendizagem e a disponibilidade de recursos de voz continuam sob controle do aplicativo FALA. Se o navegador bloquear a incorporação ou o microfone no quadro, use “Abrir FALA em nova aba”.</p>
+  </section>
+}
+
 function LearningLab({openCrypto,openPractical,customLabs=[],openCustomLab}){
   const cards=[
     {id:'esp32',number:'LAB 04',title:'ESP32 e Internet das Coisas',category:'ELETRÔNICA · IOT',description:'Aprenda GPIO, LED, botão, sensor analógico, Wi-Fi e monitor serial, com simulação e código Arduino para testar na placa.',icon:Cpu,items:['GPIO e lógica digital','Leitura de sensores','Código Arduino completo'],action:()=>openPractical('esp32'),label:'Abrir laboratório'},
@@ -353,7 +369,10 @@ function LearningLab({openCrypto,openPractical,customLabs=[],openCustomLab}){
     {id:'web',number:'LAB 06',title:'Estúdio de programação web',category:'HTML · CSS · JAVASCRIPT',description:'Edite um pequeno projeto e veja a prévia rodando em um ambiente isolado do restante da plataforma.',icon:Code2,items:['Estrutura HTML','Estilo CSS','Interação JavaScript'],action:()=>openPractical('web'),label:'Abrir editor'},
     {id:'prompts',number:'LAB 07',title:'Estúdio de prompts',category:'IA · ENGENHARIA DE PROMPTS',description:'Monte uma instrução estruturada, compare contexto e formato e copie um prompt pronto para testar em um assistente.',icon:BrainCircuit,items:['Objetivo e contexto','Formato e critérios','Prompt copiável'],action:()=>openPractical('prompts'),label:'Montar prompt'},
     {id:'marketing',number:'LAB 08',title:'Marketing e funil de conversão',category:'AQUISIÇÃO · VENDAS',description:'Simule orçamento, impressões, cliques, leads, conversões e margem para entender o resultado de uma campanha.',icon:TrendingUp,items:['CTR e taxa de lead','Conversão em vendas','ROAS e ROI estimados'],action:()=>openPractical('marketing'),label:'Simular campanha'},
-    {id:'automation',number:'LAB 09',title:'Automação de processos',category:'FLUXOS · LÓGICA',description:'Desenhe uma regra evento-condição-ação e teste um fluxo de aprovação sem conectar contas ou disparar mensagens reais.',icon:Workflow,items:['Evento e condição','Ação automatizada','Histórico da simulação'],action:()=>openPractical('automation'),label:'Testar fluxo'}
+    {id:'automation',number:'LAB 09',title:'Automação de processos',category:'FLUXOS · LÓGICA',description:'Desenhe uma regra evento-condição-ação e teste um fluxo de aprovação sem conectar contas ou disparar mensagens reais.',icon:Workflow,items:['Evento e condição','Ação automatizada','Histórico da simulação'],action:()=>openPractical('automation'),label:'Testar fluxo'},
+    {id:'api',number:'LAB 10',title:'Cliente de API REST',category:'JAVASCRIPT · HTTP · JSON',description:'Faça chamadas GET para uma API pública de demonstração, leia respostas JSON e trate status e falhas.',icon:Terminal,items:['Endpoints e métodos HTTP','Resposta JSON','Status e tratamento de erros'],action:()=>openPractical('api'),label:'Consultar API'},
+    {id:'git',number:'LAB 11',title:'Treinador de Git e GitHub',category:'GIT · VERSIONAMENTO',description:'Simule init, add, commit, branch e merge acompanhando o estado do repositório e seu histórico.',icon:Workflow,items:['Working tree e staging','Commits e branches','Merge e histórico'],action:()=>openPractical('git'),label:'Praticar Git'},
+    {id:'data',number:'LAB 12',title:'Análise de dados e CSV',category:'DADOS · INDICADORES',description:'Filtre um conjunto fictício de vendas, calcule receita, ticket médio e margem, e exporte o resultado em CSV.',icon:BarChart3,items:['Filtros e agregações','Receita e margem','Exportação CSV'],action:()=>openPractical('data'),label:'Analisar dados'}
   ]
   return <section className="workspace lab-page">
     <div className="section-heading left"><span className="eyebrow">APRENDER FAZENDO</span><h1>Laboratórios AZELF</h1><p>Ambientes interativos para testar código, raciocínio, gráficos, operações fictícias e decisões de negócio. Cada laboratório tem uma tarefa executável e uma explicação do resultado.</p></div>
