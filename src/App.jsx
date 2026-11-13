@@ -411,8 +411,11 @@ function PracticalLab({lab='esp32',back}){
   const [promptGoal,setPromptGoal]=useState('Criar uma explicação técnica para iniciantes'),[promptAudience,setPromptAudience]=useState('Pessoa sem experiência'),[promptContext,setPromptContext]=useState('Estou aprendendo na AZELF e preciso entender o assunto com um exemplo prático.'),[promptFormat,setPromptFormat]=useState('Explicação passo a passo, exemplo, exercício e checklist'),[promptResult,setPromptResult]=useState('')
   const [budget,setBudget]=useState(500),[impressions,setImpressions]=useState(20000),[ctr,setCtr]=useState(2.5),[leadRate,setLeadRate]=useState(12),[closeRate,setCloseRate]=useState(8),[ticket,setTicket]=useState(149),[grossMargin,setGrossMargin]=useState(65)
   const [automationEvent,setAutomationEvent]=useState('Novo formulário recebido'),[automationCondition,setAutomationCondition]=useState('Campos obrigatórios preenchidos'),[automationAction,setAutomationAction]=useState('Criar tarefa para revisão'),[automationLog,setAutomationLog]=useState([])
+  const [apiPath,setApiPath]=useState('/posts/1'),[apiBusy,setApiBusy]=useState(false),[apiResult,setApiResult]=useState(null),[apiError,setApiError]=useState('')
+  const [gitInitialized,setGitInitialized]=useState(false),[gitBranch,setGitBranch]=useState('main'),[gitStaged,setGitStaged]=useState(false),[gitFeature,setGitFeature]=useState(false),[gitCommits,setGitCommits]=useState([]),[gitNotice,setGitNotice]=useState('Comece inicializando o repositório.')
+  const [dataRegion,setDataRegion]=useState('Todas'),[dataChannel,setDataChannel]=useState('Todos')
   const [notice,setNotice]=useState('')
-  const titles={esp32:'ESP32 e Internet das Coisas',pow:'Proof of Work e mineração didática',web:'Estúdio de programação web',prompts:'Estúdio de prompts',marketing:'Simulador de marketing e funil',automation:'Construtor de automações'}
+  const titles={esp32:'ESP32 e Internet das Coisas',pow:'Proof of Work e mineração didática',web:'Estúdio de programação web',prompts:'Estúdio de prompts',marketing:'Simulador de marketing e funil',automation:'Construtor de automações',api:'Cliente de API REST',git:'Treinador de Git e GitHub',data:'Análise de dados e CSV'}
   const esp32Code=[
     '// AZELF — ESP32: LED + botão + sensor analógico',
     'const int LED_PIN = 2;       // Confirme o LED/pino da sua placa',
@@ -439,6 +442,65 @@ function PracticalLab({lab='esp32',back}){
   const marketingClicks=impressions*ctr/100,marketingLeads=marketingClicks*leadRate/100,marketingSales=marketingLeads*closeRate/100
   const marketingRevenue=marketingSales*ticket,marketingGross=marketingRevenue*grossMargin/100,marketingProfit=marketingGross-budget
   const roas=budget>0?marketingRevenue/budget:null,marketingROI=budget>0?marketingProfit/budget*100:null
+  async function runApiRequest(){
+    setApiBusy(true);setApiError('');setApiResult(null)
+    const controller=new AbortController()
+    const timeout=setTimeout(()=>controller.abort(),10000)
+    const started=performance.now()
+    try{
+      const response=await fetch('https://jsonplaceholder.typicode.com'+apiPath,{method:'GET',headers:{Accept:'application/json'},signal:controller.signal})
+      const body=await response.json()
+      setApiResult({status:response.status,ok:response.ok,elapsed:Math.round(performance.now()-started),body})
+      if(!response.ok)setApiError('A API retornou HTTP '+response.status+'. Confira o endpoint e tente novamente.')
+    }catch(error){
+      setApiError(error.name==='AbortError'?'A requisição excedeu 10 segundos.':(error.message||'Falha de rede ou CORS.'))
+    }finally{clearTimeout(timeout);setApiBusy(false)}
+  }
+  function initGit(){
+    setGitInitialized(true);setGitBranch('main');setGitStaged(false);setGitFeature(false);setGitCommits([]);setGitNotice('Repositório inicializado. Working tree limpa.')
+  }
+  function stageGitFiles(){
+    if(!gitInitialized){setGitNotice('Execute git init antes de adicionar arquivos.');return}
+    setGitStaged(true);setGitNotice('Arquivos index.html, styles.css e app.js preparados no staging.')
+  }
+  function commitGit(){
+    if(!gitInitialized||!gitStaged){setGitNotice('Inicialize o repositório e adicione arquivos antes do commit.');return}
+    setGitCommits(items=>[{id:Date.now(),message:gitBranch==='main'?'Cria estrutura inicial':'Implementa melhoria na interface',branch:gitBranch,type:'commit'},...items])
+    setGitStaged(false);setGitNotice('Commit criado localmente na simulação.')
+  }
+  function createGitBranch(){
+    if(!gitInitialized){setGitNotice('Inicialize o repositório primeiro.');return}
+    if(gitFeature){setGitNotice('A branch feature-layout já existe nesta simulação.');return}
+    setGitFeature(true);setGitBranch('feature-layout');setGitNotice('Branch feature-layout criada e selecionada.')
+  }
+  function mergeGitBranch(){
+    if(!gitFeature||gitBranch!=='feature-layout'){setGitNotice('Crie e selecione feature-layout antes de fazer o merge.');return}
+    if(gitStaged){setGitNotice('Finalize ou descarte as mudanças no staging antes do merge.');return}
+    setGitCommits(items=>[{id:Date.now(),message:'Merge feature-layout into main',branch:'main',type:'merge'},...items])
+    setGitBranch('main');setGitNotice('Merge simulado concluído. A branch principal recebeu as alterações.')
+  }
+  const sampleSales=useMemo(()=>[
+    {id:1001,product:'Teclado',region:'Norte',channel:'Orgânico',units:2,price:149,cost:82},
+    {id:1002,product:'Mouse',region:'Norte',channel:'Pago',units:3,price:79,cost:34},
+    {id:1003,product:'Headset',region:'Sul',channel:'Orgânico',units:1,price:229,cost:128},
+    {id:1004,product:'Teclado',region:'Sudeste',channel:'Pago',units:4,price:149,cost:82},
+    {id:1005,product:'Webcam',region:'Sul',channel:'Indicação',units:2,price:189,cost:101},
+    {id:1006,product:'Mouse',region:'Sudeste',channel:'Orgânico',units:5,price:79,cost:34},
+    {id:1007,product:'Webcam',region:'Norte',channel:'Pago',units:1,price:189,cost:101},
+    {id:1008,product:'Headset',region:'Sudeste',channel:'Indicação',units:2,price:229,cost:128}
+  ],[])
+  const filteredSales=sampleSales.filter(row=>(dataRegion==='Todas'||row.region===dataRegion)&&(dataChannel==='Todos'||row.channel===dataChannel))
+  const dataRevenue=filteredSales.reduce((sum,row)=>sum+row.units*row.price,0)
+  const dataCosts=filteredSales.reduce((sum,row)=>sum+row.units*row.cost,0)
+  const dataUnits=filteredSales.reduce((sum,row)=>sum+row.units,0)
+  function exportSalesCSV(){
+    const rows=[['Pedido','Produto','Região','Canal','Unidades','Preço unitário','Custo unitário','Receita','Margem bruta'],...filteredSales.map(row=>[row.id,row.product,row.region,row.channel,row.units,row.price,row.cost,row.units*row.price,row.units*(row.price-row.cost)])]
+    const csv='\\uFEFF'+rows.map(row=>row.map(value=>'"'+String(value).replace(/"/g,'""')+'"').join(';')).join('\\r\\n')
+    const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'})
+    const objectUrl=URL.createObjectURL(blob)
+    const link=document.createElement('a');link.href=objectUrl;link.download='azelf-lab-vendas.csv';link.click()
+    setTimeout(()=>URL.revokeObjectURL(objectUrl),1000)
+  }
   async function runProofOfWork(){
     setPowNotice('');setPowResult(null);setPowAttempts(0)
     if(!window.crypto?.subtle){setPowNotice('SHA-256 não está disponível neste navegador. Abra a plataforma em HTTPS ou use um navegador moderno.');return}
@@ -465,6 +527,18 @@ function PracticalLab({lab='esp32',back}){
   return <section className="workspace practical-lab-page">
     <button className="back-button" onClick={back}>← Voltar aos laboratórios</button>
     <div className="section-heading left"><span className="eyebrow">AMBIENTE PRÁTICO AZELF</span><h1>{titles[lab]||titles.esp32}</h1><p>Aprenda fazendo. Os controles desta tela executam simulações locais e mostram o resultado. Leia os limites de cada experiência antes de usar hardware ou serviços externos.</p></div>
+    {lab==='api'&&<div className="practical-lab-grid">
+      <div className="panel"><span className="eyebrow">REQUISIÇÃO HTTP · SOMENTE LEITURA</span><h2>Consulte uma API pública</h2><p>Escolha um endpoint de demonstração. O laboratório executa uma requisição GET real para JSONPlaceholder e exibe o status HTTP, a duração e o JSON retornado.</p><label>Endpoint<select value={apiPath} onChange={e=>{setApiPath(e.target.value);setApiResult(null);setApiError('')}}><option value="/posts/1">GET /posts/1 — publicação</option><option value="/users/1">GET /users/1 — usuário fictício</option><option value="/comments?postId=1">GET /comments?postId=1 — comentários</option></select></label><div className="result-row"><span>Host permitido</span><strong>jsonplaceholder.typicode.com</strong></div><button className="button" onClick={runApiRequest} disabled={apiBusy}>{apiBusy?'Consultando API…':'Executar GET'} <Play size={15}/></button>{apiError&&<p className="notice">{apiError}</p>}{apiResult&&<div className="api-response-meta"><span className={'status-pill '+(apiResult.ok?'active':'needs_changes')}>HTTP {apiResult.status}</span><span>{apiResult.elapsed} ms</span><span>{apiResult.ok?'Resposta recebida':'Resposta com erro'}</span></div>}</div>
+      <div className="panel"><div className="panel-title"><div><span className="eyebrow">CORPO DA RESPOSTA</span><h2>JSON retornado</h2></div><button className="mini-button" disabled={!apiResult} onClick={()=>copyLabText(JSON.stringify(apiResult?.body,null,2),setNotice)}><Copy size={14}/> Copiar JSON</button></div>{apiResult?<pre className="lesson-code api-json"><code>{JSON.stringify(apiResult.body,null,2)}</code></pre>:<div className="concept-note"><strong>Aguardando requisição</strong><p>O resultado aparecerá aqui depois que você executar o GET.</p></div>}<div className="concept-note"><strong>O que observar</strong><p>HTTP 200 indica sucesso nesta consulta. A aplicação ainda precisa validar o conteúdo recebido e tratar erros de rede, timeout e respostas inesperadas.</p></div></div>
+    </div>}
+    {lab==='git'&&<div className="practical-lab-grid">
+      <div className="panel"><span className="eyebrow">SIMULAÇÃO DE REPOSITÓRIO LOCAL</span><h2>Execute o fluxo básico do Git</h2><p>Use os controles para acompanhar a transição entre working tree, staging, commits e branches. Nada é enviado ao GitHub nesta simulação.</p><div className="git-state-grid"><div><small>Repositório</small><strong>{gitInitialized?'Inicializado':'Não inicializado'}</strong></div><div><small>Branch ativa</small><strong>{gitBranch}</strong></div><div><small>Staging</small><strong>{gitStaged?'Com arquivos':'Vazio'}</strong></div><div><small>Commits</small><strong>{gitCommits.length}</strong></div></div><div className="git-command-list"><button className="outline-button" onClick={initGit}>git init</button><button className="outline-button" onClick={stageGitFiles} disabled={!gitInitialized||gitStaged}>git add .</button><button className="outline-button" onClick={commitGit} disabled={!gitInitialized||!gitStaged}>git commit</button><button className="outline-button" onClick={createGitBranch} disabled={!gitInitialized||gitFeature}>git switch -c feature-layout</button><button className="button" onClick={mergeGitBranch} disabled={!gitFeature||gitBranch!=='feature-layout'}>git merge feature-layout</button></div><p className="notice">{gitNotice}</p></div>
+      <div className="panel"><span className="eyebrow">GIT LOG · HISTÓRICO SIMULADO</span><h2>Seus commits</h2><div className="git-log-list">{gitCommits.map(commit=><article key={commit.id}><strong>{commit.message}</strong><small>{commit.type==='merge'?'MERGE':'COMMIT'} · {commit.branch} · {new Date(commit.id).toLocaleTimeString('pt-BR')}</small></article>)}{gitCommits.length===0&&<p className="muted">Nenhum commit. Inicialize, adicione arquivos e registre o primeiro estado.</p>}</div><div className="concept-note"><strong>Próximo passo fora do laboratório</strong><p>Instale o Git, crie um repositório real e siga a aula de Git e GitHub para conectar seu projeto a um remoto.</p></div></div>
+    </div>}
+    {lab==='data'&&<div className="practical-lab-grid">
+      <div className="panel"><span className="eyebrow">BASE FICTÍCIA DE VENDAS</span><h2>Filtre os registros</h2><p>Este conjunto de demonstração não representa vendas reais. Altere os filtros e observe como os indicadores se recalculam.</p><div className="data-filter-row"><label>Região<select value={dataRegion} onChange={e=>setDataRegion(e.target.value)}><option>Todas</option><option>Norte</option><option>Sul</option><option>Sudeste</option></select></label><label>Canal<select value={dataChannel} onChange={e=>setDataChannel(e.target.value)}><option>Todos</option><option>Orgânico</option><option>Pago</option><option>Indicação</option></select></label></div><div className="data-kpi-grid"><div><small>Pedidos</small><strong>{filteredSales.length}</strong></div><div><small>Unidades</small><strong>{dataUnits}</strong></div><div><small>Receita</small><strong>R$ {dataRevenue.toLocaleString('pt-BR',{minimumFractionDigits:2})}</strong></div><div><small>Margem bruta</small><strong>R$ {(dataRevenue-dataCosts).toLocaleString('pt-BR',{minimumFractionDigits:2})}</strong></div></div><button className="button" onClick={exportSalesCSV} disabled={!filteredSales.length}>Exportar filtro em CSV <ExternalLink size={14}/></button><p className="admin-footnote">O CSV é gerado no seu navegador e contém apenas a base fictícia deste laboratório.</p></div>
+      <div className="panel"><span className="eyebrow">REGISTROS FILTRADOS</span><h2>Pedidos demonstrativos</h2><div className="data-table-wrap"><table className="data-table"><thead><tr><th>Produto</th><th>Região</th><th>Un.</th><th>Receita</th></tr></thead><tbody>{filteredSales.map(row=><tr key={row.id}><td>{row.product}</td><td>{row.region}</td><td>{row.units}</td><td>R$ {(row.price*row.units).toLocaleString('pt-BR')}</td></tr>)}</tbody></table></div><div className="concept-note"><strong>Ticket médio por pedido</strong><p>R$ {filteredSales.length?(dataRevenue/filteredSales.length).toLocaleString('pt-BR',{minimumFractionDigits:2}):'0,00'}</p><small>Margem bruta = receita − custo direto dos produtos. Não inclui impostos, frete, taxas, equipe nem custos fixos.</small></div></div>
+    </div>}
     {lab==='esp32'&&<div className="practical-lab-grid">
       <div className="panel"><span className="eyebrow">SIMULADOR DE GPIO</span><h2>Acione um LED virtual</h2><p className="muted">O LED representa uma saída digital. O botão abaixo muda o estado lógico de LOW para HIGH.</p><div className={ledOn?'esp32-led on':'esp32-led'}><span/></div><strong className={ledOn?'positive':'muted'}>{ledOn?'GPIO 2 = HIGH · LED aceso':'GPIO 2 = LOW · LED apagado'}</strong><div className="row-actions"><button className="button" onClick={()=>setLedOn(v=>!v)}>{ledOn?'Desligar LED':'Ligar LED'} <Lightbulb size={15}/></button><button className="outline-button" onClick={()=>setButtonPressed(v=>!v)}>{buttonPressed?'Soltar botão':'Pressionar botão virtual'}</button></div><div className="concept-note"><strong>Lógica digital</strong><p>HIGH representa nível lógico alto e LOW representa nível lógico baixo. A simulação não mede tensão e não está conectada a uma placa física.</p></div></div>
       <div className="panel"><span className="eyebrow">SENSOR ANALÓGICO</span><h2>Leia um valor de ADC</h2><label>Valor simulado do sensor<input type="range" min="0" max="4095" value={sensor} onChange={e=>setSensor(Number(e.target.value))}/><strong>{sensor} / 4095</strong></label><div className="sensor-gauge"><div style={{width:(sensor/4095*100)+'%'}}/></div><div className="result-row"><span>Leitura normalizada</span><strong>{(sensor/4095*100).toFixed(1)}%</strong></div><div className="result-row"><span>Estado do botão</span><strong>{buttonPressed?'PRESSIONADO':'SOLTO'}</strong></div><p className="muted">No hardware, analogRead depende do ADC e da placa. O intervalo de 0 a 4095 é uma referência comum no ESP32 clássico, não uma garantia para todos os modelos.</p></div>
