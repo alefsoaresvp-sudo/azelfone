@@ -17,7 +17,7 @@ const areas = [
 const goals = ['Conseguir meu primeiro trabalho ou cliente','Criar uma fonte de renda','Abrir ou melhorar um negócio','Aprender tecnologia e IA','Organizar minhas finanças','Explorar possibilidades e descobrir meu caminho']
 const timeOptions = ['Até 30 minutos','30 a 60 minutos','1 a 2 horas','Mais de 2 horas']
 const SUPPORT_WHATSAPP = '5563992342186'
-const SUPPORT_EMAIL = 'alvissoaresvp@gmail.com'
+const SUPPORT_EMAIL = 'ALEFSOARESVP@GMAIL.COM'
 
 function App(){
   const [session,setSession]=useState(null),[profile,setProfile]=useState(null),[isAdmin,setIsAdmin]=useState(false)
