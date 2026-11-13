@@ -448,7 +448,7 @@ function CryptoLab({back,initialTab='chain'}){
   const [balance,setBalance]=useState(10000),[holding,setHolding]=useState(0),[tradeAmount,setTradeAmount]=useState('500'),[lastTrade,setLastTrade]=useState(''),[period,setPeriod]=useState('30D')
   const [difficulty,setDifficulty]=useState(2),[mining,setMining]=useState(false),[miningMessage,setMiningMessage]=useState(''),[selectedPoint,setSelectedPoint]=useState(0)
   const [businessPrice,setBusinessPrice]=useState(89),[unitCost,setUnitCost]=useState(28),[marketing,setMarketing]=useState(450),[sales,setSales]=useState(32)
-  const series={7:[100,102,99,104,106,103,108,111,109,114,112,116],30:[100,97,101,103,99,104,106,102,109,107,112,115,111,118,116,121],90:[100,104,98,101,96,105,109,103,111,108,115,112,121,119,124,118,128,133]}
+  const series={'7D':[100,102,99,104,106,103,108,111,109,114,112,116],'30D':[100,97,101,103,99,104,106,102,109,107,112,115,111,118,116,121],'90D':[100,104,98,101,96,105,109,103,111,108,115,112,121,119,124,118,128,133]}
   const values=series[period],activePoint=Math.min(selectedPoint,values.length-1)
   const max=Math.max(...values),min=Math.min(...values),xPoint=i=>24+i*452/(values.length-1),yPoint=v=>132-(v-min)/(max-min||1)*105,points=values.map((v,i)=>xPoint(i)+','+yPoint(v)).join(' ')
   const price=Number((105.5*values[activePoint]/100).toFixed(2))
