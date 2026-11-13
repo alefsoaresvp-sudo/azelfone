@@ -627,3 +627,6 @@ img,video,iframe,svg,pre,code{max-width:100%}
   .student-affiliate-row .user-actions button{flex:1}
   .income-path-card p{min-height:0}
 }
+
+.income-resource-links{display:flex;align-items:center;gap:14px;flex-shrink:0}
+@media(max-width:760px){.income-resource-links{flex-wrap:wrap}}
