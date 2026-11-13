@@ -285,7 +285,7 @@ function Admin({courses,lessons,tools,profile,refresh,refreshAffiliates}){
     }catch(error){setMessage(error.message||'Não foi possível salvar o produto.')}
     finally{setBusy(false)}
   }
-  function editAffiliate(p){setAffiliateId(p.id);setAffiliatePlatform(p.platform);setAffiliateTitle(p.title);setAffiliateDescription(p.description||'');setAffiliateCategory(p.category||'geral');setAffiliateProductUrl(p.product_url||'');setAffiliateUrl(p.affiliate_url||'');setAffiliateImageUrl(p.image_url||'');setAffiliatePrice(p.price_label||'');setAffiliateDisclosure(p.disclosure||'');setAffiliatePublished(p.is_published);setAffiliateAdultOnly(Boolean(p.adult_only))
+  function editAffiliate(p){setAffiliateId(p.id);setAffiliatePlatform(p.platform);setAffiliateTitle(p.title);setAffiliateDescription(p.description||'');setAffiliateCategory(p.category||'geral');setAffiliateProductUrl(p.product_url||'');setAffiliateUrl(p.affiliate_url||'');setAffiliateImageUrl(p.image_url||'');setAffiliatePrice(p.price_label||'');setAffiliateDisclosure(p.disclosure||'');setAffiliatePublished(p.is_published);setAffiliateAdultOnly(Boolean(p.adult_only))}
   async function toggleAffiliatePublished(product){
     if(!product.is_published&&(!product.affiliate_url||!validAffiliateHttps(product.affiliate_url))){setMessage('Para publicar, edite o produto e adicione um link de afiliado HTTPS válido.');return}
     setBusy(true)
