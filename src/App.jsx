@@ -495,7 +495,7 @@ function PracticalLab({lab='esp32',back}){
   const dataUnits=filteredSales.reduce((sum,row)=>sum+row.units,0)
   function exportSalesCSV(){
     const rows=[['Pedido','Produto','Região','Canal','Unidades','Preço unitário','Custo unitário','Receita','Margem bruta'],...filteredSales.map(row=>[row.id,row.product,row.region,row.channel,row.units,row.price,row.cost,row.units*row.price,row.units*(row.price-row.cost)])]
-    const csv='\\uFEFF'+rows.map(row=>row.map(value=>'"'+String(value).replace(/"/g,'""')+'"').join(';')).join('\\r\\n')
+    const csv=String.fromCharCode(65279)+rows.map(row=>row.map(value=>'"'+String(value).replace(/"/g,'""')+'"').join(';')).join(String.fromCharCode(13,10))
     const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'})
     const objectUrl=URL.createObjectURL(blob)
     const link=document.createElement('a');link.href=objectUrl;link.download='azelf-lab-vendas.csv';link.click()
