@@ -404,3 +404,7 @@
 :focus-visible{outline:3px solid #ec5369!important;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.hero-cloud{animation:none!important}}
 @media(max-width:620px){.hero-cloud{opacity:.48;scale:.78}.cloud-back{left:-18%;top:8%}.cloud-front{right:-18%;bottom:12%}}
+
+.range-value-control{display:flex;align-items:center;gap:12px;justify-content:flex-start;margin-top:6px}
+.range-value-control input{width:115px!important;max-width:115px!important}
+.range-value-control strong{font-size:12px;color:var(--accent)}
